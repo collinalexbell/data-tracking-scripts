@@ -5,8 +5,10 @@ from datetime import datetime
 import praw
 import sys
 import json
+from pathlib import Path
 
-with open('/home/alex/.secrets/reddit') as json_github_secrets_file:
+home = str(Path.home())
+with open(home + '/.secrets/reddit') as json_github_secrets_file:
     secrets = json.load(json_github_secrets_file)
 
 reddit = praw.Reddit(client_id=secrets['client_id'],
