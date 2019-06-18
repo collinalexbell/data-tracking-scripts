@@ -1,0 +1,7 @@
+#!/bin/bash
+source ~/.rc/history.rc
+export HISTCONTROL=ignorespace
+HISTFILE=~/.bash_history
+set -o history
+ printf "%s: %d\n" "$(date -u +"%b %d")" $(history | grep "$(date -u +"%b %d")" | wc --lines)
+ export HISTCONTROL=ignoredups:erasedups > /dev/null
