@@ -1,0 +1,39 @@
+#!/bin/python
+
+from datetime import date
+from datetime import datetime
+import praw
+import sys
+import json
+
+with open('/home/alex/.secrets/reddit') as json_github_secrets_file:
+    secrets = json.load(json_github_secrets_file)
+
+reddit = praw.Reddit(client_id=secrets['client_id'],
+    client_secret=secrets['client_secret'],
+    password=secrets['password'], user_agent='testscript by /u/fakebot3',
+    username=secrets['username'])
+
+earliest = datetime.combine(date.today(), datetime.min.time()).timestamp()
+
+
+me = reddit.user.me()
+
+newSubmissions = me.submissions.new()
+newComments = me.comments.new()
+
+numSubmissions = 0
+numComments = 0
+
+for submission in newSubmissions:
+    if submission.created_utc > earliest:
+        numSubmissions += 1
+
+for comment in newComments:
+    if comment.created_utc > earliest:
+        numComments += 1
+
+json = "{{'date':'{}', 'numSubmissions':{}, 'numComments':{}}}".format(date.today().isoformat() ,numSubmissions, numComments)
+
+print(json)
+
