@@ -13,7 +13,7 @@ with open(home + '/.secrets/reddit') as json_github_secrets_file:
 
 reddit = praw.Reddit(client_id=secrets['client_id'],
     client_secret=secrets['client_secret'],
-    password=secrets['password'], user_agent='testscript by /u/fakebot3',
+    password=secrets['password'], user_agent='agent cyborg',
     username=secrets['username'])
 
 earliest = datetime.combine(date.today(), datetime.min.time()).timestamp()
